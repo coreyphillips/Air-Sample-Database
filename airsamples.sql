@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 25, 2014 at 03:13 AM
+-- Generation Time: Sep 15, 2014 at 04:46 AM
 -- Server version: 6.0.11-alpha-community
 -- PHP Version: 5.4.7
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `airsamples`
 --
-CREATE DATABASE `airsamples` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `airsamples`;
 
 -- --------------------------------------------------------
 
@@ -53,9 +51,9 @@ CREATE TABLE IF NOT EXISTS `information` (
   `instrument_id` varchar(100) DEFAULT NULL,
   `sample_type` varchar(50) DEFAULT NULL,
   `test_notes` varchar(200) DEFAULT NULL,
-  `date_collected` date DEFAULT NULL,
-  `date_received` date DEFAULT NULL,
-  `date_analyzed` date DEFAULT NULL,
+  `date_collected` varchar(100) DEFAULT NULL,
+  `date_received` varchar(100) DEFAULT NULL,
+  `date_analyzed` varchar(100) DEFAULT NULL,
   `volume_analyzed` decimal(10,4) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `project_id` (`project_id`)
@@ -84,23 +82,6 @@ CREATE TABLE IF NOT EXISTS `mblank` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mblank_tic`
---
-
-CREATE TABLE IF NOT EXISTS `mblank_tic` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `project_id` varchar(100) NOT NULL,
-  `retention` decimal(10,4) DEFAULT NULL,
-  `compound` varchar(50) DEFAULT NULL,
-  `concentration_ugm3` decimal(10,4) DEFAULT NULL,
-  `data_qualifier` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `project_id` (`project_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `mblanktwo`
 --
 
@@ -114,6 +95,23 @@ CREATE TABLE IF NOT EXISTS `mblanktwo` (
   `result_ppbv` decimal(10,4) DEFAULT NULL,
   `mrl_ppbv` decimal(10,4) DEFAULT NULL,
   `data_qualifier` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `project_id` (`project_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mblank_tic`
+--
+
+CREATE TABLE IF NOT EXISTS `mblank_tic` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `project_id` varchar(100) DEFAULT NULL,
+  `retention` decimal(10,4) DEFAULT NULL,
+  `compound` varchar(50) DEFAULT NULL,
+  `concentration_ugm3` decimal(10,4) DEFAULT NULL,
+  `data_qualifier` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `project_id` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -184,11 +182,11 @@ CREATE TABLE IF NOT EXISTS `surrogates` (
 
 CREATE TABLE IF NOT EXISTS `tic` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `project_id` varchar(100) NOT NULL,
+  `project_id` varchar(100) DEFAULT NULL,
   `retention` decimal(10,4) DEFAULT NULL,
   `compound` varchar(100) DEFAULT NULL,
-  `concentration_ugm3` decimal(10,4) NOT NULL,
-  `data_qualifier` varchar(50) NOT NULL,
+  `concentration_ugm3` decimal(10,4) DEFAULT NULL,
+  `data_qualifier` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `project_id` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -210,16 +208,16 @@ ALTER TABLE `mblank`
   ADD CONSTRAINT `mblank_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `client_info` (`project_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `mblank_tic`
---
-ALTER TABLE `mblank_tic`
-  ADD CONSTRAINT `mblank_tic_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `client_info` (`project_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `mblanktwo`
 --
 ALTER TABLE `mblanktwo`
   ADD CONSTRAINT `mblanktwo_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `client_info` (`project_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `mblank_tic`
+--
+ALTER TABLE `mblank_tic`
+  ADD CONSTRAINT `mblank_tic_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `client_info` (`project_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `sample`

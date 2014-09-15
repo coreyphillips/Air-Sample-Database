@@ -2,7 +2,7 @@ Folder- "Classes"
 This folder currently houses all PHPExcel classes.
 
 Folder- "files"
-The two files in the folder "files" (midway.xls & midwaytwo.xls) are the two types of files the Louisiana Bucket Brigade receives their air sample results in.
+The four files in the folder "files" (One.xls, Two.xls, Three.xls and Four.xls) are the four types of files the Louisiana Bucket Brigade receives their air sample results in.
 
 Folder- "uploads"
 This folder stores all air sample files after upload and insertion into the database.
